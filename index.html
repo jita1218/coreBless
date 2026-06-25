@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Animal Corner</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #ffb6c1;
+      background-image: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #880e4f;
+      margin-bottom: 24px;
+      text-shadow: 0 2px 8px rgba(255, 105, 180, 0.4);
+      letter-spacing: 1px;
+    }
+
+    /* Header info panel */
+    .header {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 24px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(255, 105, 180, 0.3);
+      margin-bottom: 52px;
+    }
+
+    .header-field {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .header-field label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #c2185b;
+    }
+
+    .header-field span {
+      font-size: 18px;
+      font-weight: 600;
+      color: #880e4f;
+    }
+
+    /* Triangle layout: 3 vertices in an equilateral triangle */
+    .triangle-container {
+      position: relative;
+      width: 340px;
+      height: 320px;
+    }
+
+    /* Dashed triangle guide */
+    .triangle-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='340' height='320'%3E%3Cpolygon points='170,20 20,300 320,300' fill='none' stroke='rgba(255,105,180,0.45)' stroke-width='2' stroke-dasharray='8,5'/%3E%3C/svg%3E") no-repeat center;
+    }
+
+    .animal-card {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(255, 105, 180, 0.35);
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      gap: 6px;
+      transition: transform 0.25s;
+    }
+
+    .animal-card:hover {
+      transform: scale(1.12);
+    }
+
+    .animal-card .emoji {
+      font-size: 52px;
+      line-height: 1;
+    }
+
+    .animal-card .label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #880e4f;
+      letter-spacing: 0.5px;
+    }
+
+    /* Top vertex */
+    .animal-card.top {
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .animal-card.top:hover {
+      transform: translateX(-50%) scale(1.12);
+    }
+
+    /* Bottom-left vertex */
+    .animal-card.bottom-left {
+      bottom: -20px;
+      left: -20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Animal Corner</h1>
+
+  <div class="header">
+    <div class="header-field">
+      <label>Name</label>
+      <span>Animal World</span>
+    </div>
+    <div class="header-field">
+      <label>Age</label>
+      <span>3 Years</span>
+    </div>
+    <div class="header-field">
+      <label>Gender</label>
+      <span>All</span>
+    </div>
+    <div class="header-field">
+      <label>Colour</label>
+      <span>Pink 🩷</span>
+    </div>
+  </div>
+
+  <div class="triangle-container">
+    <div class="animal-card top">
+      <span class="emoji">🐱</span>
+      <span class="label">Cat</span>
+    </div>
+    <div class="animal-card bottom-left">
+      <span class="emoji">🐶</span>
+      <span class="label">Dog</span>
+    </div>
+  </div>
+
+</body>
+</html>
