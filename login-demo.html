@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Demo</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background-color: #ffb6c1;
+      background-image: linear-gradient(135deg, #ffb6c1 0%, #ff69b4 100%);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 20px;
+      gap: 40px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #880e4f;
+      text-shadow: 0 2px 8px rgba(255, 105, 180, 0.4);
+      letter-spacing: 1px;
+    }
+
+    /* Rotating triangle rig */
+    .orbit {
+      position: relative;
+      width: 280px;
+      height: 280px;
+    }
+
+    /* The three cards spin around the center as a group */
+    .spinner {
+      position: absolute;
+      inset: 0;
+      animation: spin240 3s ease-in-out infinite;
+    }
+
+    @keyframes spin240 {
+      0%   { transform: rotate(0deg); }
+      60%  { transform: rotate(240deg); }
+      80%  { transform: rotate(240deg); }
+      100% { transform: rotate(240deg); }
+    }
+
+    /* Individual card — counter-rotates so emoji stays upright */
+    .animal-card {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.65);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(255, 105, 180, 0.35);
+      border: 3px solid rgba(255, 255, 255, 0.9);
+      gap: 4px;
+      /* counter-rotate so content stays readable */
+      animation: counter240 3s ease-in-out infinite;
+    }
+
+    @keyframes counter240 {
+      0%   { transform: rotate(0deg); }
+      60%  { transform: rotate(-240deg); }
+      80%  { transform: rotate(-240deg); }
+      100% { transform: rotate(-240deg); }
+    }
+
+    .animal-card .emoji {
+      font-size: 44px;
+      line-height: 1;
+    }
+
+    .animal-card .label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #880e4f;
+    }
+
+    /* Orange cat card tint */
+    .animal-card.orange-cat {
+      background: rgba(255, 200, 120, 0.65);
+      border-color: rgba(255, 165, 0, 0.6);
+    }
+    .animal-card.orange-cat .label { color: #b85c00; }
+
+    /*
+      Triangle vertex positions (radius = 110px from center):
+        top:          cx=140, cy=140 → top vertex    (270°): x = 140-50 = 90,  y = 140-110-50 = -20
+        bottom-right (30°):  x = 140 + 110*cos(30°) - 50, y = 140 + 110*sin(30°) - 50
+        bottom-left  (150°): symmetric
+      Center of orbit = 140,140. Card size = 100px so offset by -50.
+      top    (270°): left=90px,  top=-20px
+      right  (30°):  left=135px, top=90px   (approx: cos30=0.866 → 95; sin30=0.5 → 55 → 140+95-50=185, 140+55-50=145)
+      left   (150°): left=-45px, top=90px   (cos150=-0.866 → -95; sin150=0.5 → 55 → 140-95-50=-5, 140+55-50=145)
+    */
+    .animal-card.top          { top:  -20px; left:  90px; }
+    .animal-card.bottom-right { top:  145px; left: 185px; }
+    .animal-card.bottom-left  { top:  145px; left:  -5px; }
+
+    /* Login form card */
+    .login-card {
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 32px 36px;
+      width: 100%;
+      max-width: 360px;
+      box-shadow: 0 8px 32px rgba(255, 105, 180, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .login-card h2 {
+      text-align: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #880e4f;
+    }
+
+    .login-card input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid rgba(255, 105, 180, 0.4);
+      border-radius: 10px;
+      font-size: 15px;
+      background: rgba(255, 255, 255, 0.7);
+      color: #880e4f;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .login-card input::placeholder { color: #e091b0; }
+
+    .login-card input:focus {
+      border-color: #ff69b4;
+    }
+
+    .login-card button {
+      padding: 13px;
+      background: linear-gradient(135deg, #ff69b4, #c2185b);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .login-card button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Login Demo</h1>
+
+  <!-- Rotating triangle of animals -->
+  <div class="orbit">
+    <div class="spinner">
+      <div class="animal-card top">
+        <span class="emoji">🐱</span>
+        <span class="label">Cat</span>
+      </div>
+      <div class="animal-card bottom-right orange-cat">
+        <span class="emoji">🐈</span>
+        <span class="label">Orange Cat</span>
+      </div>
+      <div class="animal-card bottom-left">
+        <span class="emoji">🐄</span>
+        <span class="label">Cow</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login form -->
+  <div class="login-card">
+    <h2>Welcome Back 🩷</h2>
+    <input type="text" placeholder="Username" />
+    <input type="password" placeholder="Password" />
+    <button type="button">Log In</button>
+  </div>
+
+</body>
+</html>
