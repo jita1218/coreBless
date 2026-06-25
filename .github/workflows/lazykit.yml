@@ -2,7 +2,7 @@ name: LazyKit
 
 on:
   issues:
-    types: [opened, labeled]
+    types: [opened]
   issue_comment:
     types: [created]
 
@@ -13,7 +13,7 @@ concurrency:
 jobs:
   lazykit:
     if: >
-      contains(github.event.issue.labels.*.name, 'lazykit') ||
+      github.event.action == 'opened' ||
       contains(github.event.comment.body, '@claude')
     runs-on: ubuntu-latest
     timeout-minutes: 30
