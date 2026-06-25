@@ -130,6 +130,22 @@
       bottom: -20px;
       left: -20px;
     }
+
+    /* Bottom-right vertex */
+    .animal-card.bottom-right {
+      bottom: -20px;
+      right: -20px;
+    }
+
+    /* Orange cat tint */
+    .animal-card.orange-cat {
+      background: rgba(255, 200, 120, 0.65);
+      border-color: rgba(255, 165, 0, 0.6);
+    }
+
+    .animal-card.orange-cat .label {
+      color: #b85c00;
+    }
   </style>
 </head>
 <body>
@@ -163,6 +179,10 @@
     <div class="animal-card bottom-left">
       <span class="emoji">🐶</span>
       <span class="label">Dog</span>
+    </div>
+    <div class="animal-card bottom-right orange-cat">
+      <span class="emoji">🐈</span>
+      <span class="label">Orange Cat</span>
     </div>
   </div>
 
